@@ -1,5 +1,4 @@
 # MyDataAnalysis
-### 2022 데이터분석기록
 2022-self data analysis
 
 ### [IRIS 데이터 분석해보기]
