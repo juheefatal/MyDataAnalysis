@@ -1,31 +1,33 @@
 데이터 참조 : http://opendata.hira.or.kr/op/opc/olapMsupInfo.do (187KB)
 
 * EDA(Exploratory Data Analysis)의 개념 및 필요성
-      - 수집한 데이터가 들어왔을 때, 이를 다양한 각도에서 관찰하고 이해하는 과정
-      - 데이터 본격적으로 분석하기 전, 그래프나 통계적 방법으로 자료를 관찰
-      - 모델링에 앞서 데이터를 살피는 모든 과정을 통틀어 EDA라 표현
-      - 데이터 분포 값 검토. 패턴 분석
+    - 수집한 데이터가 들어왔을 때, 이를 다양한 각도에서 관찰하고 이해하는 과정
+    - 데이터 본격적으로 분석하기 전, 그래프나 통계적 방법으로 자료를 관찰
+    - 모델링에 앞서 데이터를 살피는 모든 과정을 통틀어 EDA라 표현
+    - 데이터 분포 값 검토. 패턴 분석
 	- 데이터에 결측치가 있는지 확인하고, 있다면 제거해주어야 함
 	- 분석하려는 데이터가 수치형(numerical data)인지 범주형(categorical data)인지 확인
 		ex) 만약 필요한 데이터가 수치형인데 현재 범주형으로 되어있다면 데이터타입이 'object'로 뜸
 		    → astype을 활용해 수치형으로 변환해주어야 함
 
 *  EDA를 위해 활용할 라이브러리
-      - numpy (as np)
-      - pandas (as pd)
-      - matplotlib (as mpl)
-      - matplotlib.pyplot (as plt)
-      - seaborn (as sns)
+    - numpy (as np)
+    - pandas (as pd)
+    - matplotlib (as mpl)
+    - matplotlib.pyplot (as plt)
+    - seaborn (as sns)
 
-* 내가 분석하고자 하는 데이터의 각 feature의미 파악, 분석 목적 파악
-      - 
+* 내가 분석하고자 하는 데이터의 유형, 각 feature의미 파악, 분석 목적 파악
+    - dtypes : object → 현재 분석하려는 데이터가 범주형 데이터임을 알 수 있음
+    - 
 
 * 데이터 전처리 준비
-      - 공공데이터 파일 분석시 Encoding이 cp949, euc-kr등이 많음. utf-8로 변경필요
-      - df = pd.read_csv('open_data_korean.csv', engine='python') ←엔진을 python으로 변경시 일단 오류는 해결, 하지만 한글 깨져서 보임
-      - df = pd.read_csv('open_data_korean.csv', encoding='utf-8') ← 인코딩옵션을 utf-8로 변경. 하지만 실제로 큰 도움이 되진 않았음. 파일 자체가 cp949라서
-      - 추천해결책 1. excel에서 아예 인코딩 옵션을 변경 ( 파일>다른이름으로저장>CSV UTF-8(쉼표로 분리) 선택 )
-      - 추천해결책 2. 빈 excel파일 열기 - '데이터>데이터가져오기>파일에서>텍스트/CSV' 선택 - 인코딩방식 UTF-8로 변경 - '로드'클릭 - 해결1처럼 저장
+    - 공공데이터 파일 분석시 Encoding이 cp949, euc-kr등이 많음. utf-8로 변경필요
+    - df = pd.read_csv('open_data_korean.csv', engine='python') ←엔진을 python으로 변경시 일단 오류는 해결, 하지만 한글 깨져서 보임
+    - df = pd.read_csv('open_data_korean.csv', encoding='utf-8') ← 인코딩옵션을 utf-8로 변경. 하지만 실제로 큰 도움이 되진 않았음. 파일 자체가 cp949라서
+    - 추천해결책 1. excel에서 아예 인코딩 옵션을 변경 ( 파일>다른이름으로저장>CSV UTF-8(쉼표로 분리) 선택 )
+    - 추천해결책 2. 빈 excel파일 열기 - '데이터>데이터가져오기>파일에서>텍스트/CSV' 선택 - 인코딩방식 UTF-8로 변경 - '로드'클릭 - 해결1처럼 저장
+    - 추천해결책 3. excel에서 파일>다른이름으로저장>CSV(쉼표로분리) 선택 후 코드작성시 인코딩옵션 → encoding="CP949"
 
 
 
