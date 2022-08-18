@@ -14259,6 +14259,14 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="&#50557;&#54952;&#48516;&#47448;&#48324;-&#49324;&#50857;&#48712;&#46020;&#50640;-&#45824;&#54644;-&#48516;&#49437;&#54616;&#44592;">&#50557;&#54952;&#48516;&#47448;&#48324; &#49324;&#50857;&#48712;&#46020;&#50640; &#45824;&#54644; &#48516;&#49437;&#54616;&#44592;<a class="anchor-link" href="#&#50557;&#54952;&#48516;&#47448;&#48324;-&#49324;&#50857;&#48712;&#46020;&#50640;-&#45824;&#54644;-&#48516;&#49437;&#54616;&#44592;">&#182;</a></h2><ul>
+<li>기본 모델 생성 전 데이터 탐색 및 전처리 수행</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="&#46972;&#51060;&#48652;&#47084;&#47532;-&#54840;&#52636;">&#46972;&#51060;&#48652;&#47084;&#47532; &#54840;&#52636;<a class="anchor-link" href="#&#46972;&#51060;&#48652;&#47084;&#47532;-&#54840;&#52636;">&#182;</a></h3>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15104,20 +15112,24 @@ Length: 70, dtype: int64</pre>
 </ul>
 
 <pre><code>(요약)
-- 1행제거
-- 2행제거
-- 3행이름변경(1행내용고려)
-- 2열제거</code></pre>
+- 1행이름변경 - 3rd
+- 2행제거 - 1st
+- 3행제거 - 4th
+- 2열제거 - 2nd</code></pre>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#2행삭제</span>
-<span class="n">new_df</span> <span class="o">=</span> <span class="n">old_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">new_df_1</span> <span class="o">=</span> <span class="n">old_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#2열 삭제 → 나중에 old_df불러와서 비교하면 복구할 수 있지 않을까..? 더 좋은 방법은 뭘까..</span>
+<span class="n">new_df</span> <span class="o">=</span> <span class="n">new_df_1</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Unnamed: 1&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
 <span class="n">new_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -15134,7 +15146,7 @@ Length: 70, dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[44]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[53]:</div>
 
 
 
@@ -15158,7 +15170,6 @@ Length: 70, dtype: int64</pre>
     <tr style="text-align: right;">
       <th></th>
       <th>Unnamed: 0</th>
-      <th>Unnamed: 1</th>
       <th>2019년 09월</th>
       <th>2019년 09월.1</th>
       <th>2019년 10월</th>
@@ -15167,6 +15178,7 @@ Length: 70, dtype: int64</pre>
       <th>2019년 11월.1</th>
       <th>2019년 12월</th>
       <th>2019년 12월.1</th>
+      <th>2020년 01월</th>
       <th>...</th>
       <th>2022년 02월</th>
       <th>2022년 02월.1</th>
@@ -15184,7 +15196,6 @@ Length: 70, dtype: int64</pre>
     <tr>
       <th>1</th>
       <td>약효분류코드</td>
-      <td>약효분류명</td>
       <td>수량</td>
       <td>사용금액</td>
       <td>수량</td>
@@ -15193,6 +15204,7 @@ Length: 70, dtype: int64</pre>
       <td>사용금액</td>
       <td>수량</td>
       <td>사용금액</td>
+      <td>수량</td>
       <td>...</td>
       <td>수량</td>
       <td>사용금액</td>
@@ -15208,7 +15220,6 @@ Length: 70, dtype: int64</pre>
     <tr>
       <th>2</th>
       <td>111</td>
-      <td>전신마취제</td>
       <td>846</td>
       <td>3,225</td>
       <td>892</td>
@@ -15217,6 +15228,7 @@ Length: 70, dtype: int64</pre>
       <td>3,458</td>
       <td>971</td>
       <td>3,512</td>
+      <td>1,016</td>
       <td>...</td>
       <td>919</td>
       <td>3,426</td>
@@ -15232,7 +15244,6 @@ Length: 70, dtype: int64</pre>
     <tr>
       <th>3</th>
       <td>112</td>
-      <td>최면진정제</td>
       <td>20,399</td>
       <td>2,937</td>
       <td>21,821</td>
@@ -15241,6 +15252,7 @@ Length: 70, dtype: int64</pre>
       <td>3,132</td>
       <td>22,835</td>
       <td>3,317</td>
+      <td>23,212</td>
       <td>...</td>
       <td>23,425</td>
       <td>3,192</td>
@@ -15256,7 +15268,6 @@ Length: 70, dtype: int64</pre>
     <tr>
       <th>4</th>
       <td>113</td>
-      <td>항전간제</td>
       <td>65,693</td>
       <td>17,664</td>
       <td>69,680</td>
@@ -15265,6 +15276,7 @@ Length: 70, dtype: int64</pre>
       <td>18,664</td>
       <td>72,315</td>
       <td>19,179</td>
+      <td>73,761</td>
       <td>...</td>
       <td>71,940</td>
       <td>19,485</td>
@@ -15280,7 +15292,6 @@ Length: 70, dtype: int64</pre>
     <tr>
       <th>5</th>
       <td>114</td>
-      <td>해열·진통·소염제</td>
       <td>411,282</td>
       <td>67,625</td>
       <td>438,919</td>
@@ -15289,6 +15300,7 @@ Length: 70, dtype: int64</pre>
       <td>70,728</td>
       <td>491,542</td>
       <td>74,902</td>
+      <td>478,204</td>
       <td>...</td>
       <td>400,686</td>
       <td>67,828</td>
@@ -15303,7 +15315,7 @@ Length: 70, dtype: int64</pre>
     </tr>
   </tbody>
 </table>
-<p>5 rows × 70 columns</p>
+<p>5 rows × 69 columns</p>
 </div>
 </div>
 
@@ -15313,14 +15325,18 @@ Length: 70, dtype: int64</pre>
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#최상단의 행은 인덱스 번호가 없어서 어떻게 삭제해야 하는 지 잘 모르겠음</span>
 <span class="c1"># → 최상단행의 column명을 index 1번 행을 고려하여 변경한 후 index 1행 삭제할 것</span>
+
+<span class="c1">#Unnamed: 0 → &#39;code&#39; 로 변경(code : 약효분류코드)</span>
+<span class="n">new_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">:</span> <span class="s1">&#39;code&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
 <span class="c1">#현재 column명</span>
 <span class="c1"># [&#39;Unnamed: 0&#39;, &#39;Unnamed: 1&#39;, &#39;2019년 09월&#39;, &#39;2019년 09월.1&#39;, &#39;2019년 10월&#39;,</span>
 <span class="c1">#        &#39;2019년 10월.1&#39;, &#39;2019년 11월&#39;, &#39;2019년 11월.1&#39;, &#39;2019년 12월&#39;, &#39;2019년 12월.1&#39;,</span>
@@ -15337,6 +15353,227 @@ Length: 70, dtype: int64</pre>
 <span class="c1">#        &#39;2022년 02월&#39;, &#39;2022년 02월.1&#39;, &#39;2022년 03월&#39;, &#39;2022년 03월.1&#39;, &#39;2022년 04월&#39;,</span>
 <span class="c1">#        &#39;2022년 04월.1&#39;, &#39;2022년 05월&#39;, &#39;2022년 05월.1&#39;, &#39;2022년 06월&#39;, &#39;2022년 06월.1&#39;]</span>
 <span class="c1">#너무 많으니 for문을 이용해볼 것</span>
+
+<span class="c1">#일단 column명이 너무 복잡해서 간단한 실수로 변경. 총 68개를 변경하게 될 것.</span>
+<span class="c1">#2019년 9월은 1.0, 9월.1은 1.5로 두고 총 34개월치를 살펴볼 예정이므로 마지막 2022년 6월은 34.0, 6월.1은 34.5로 한다.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">new_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[54]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>code</th>
+      <th>2019년 09월</th>
+      <th>2019년 09월.1</th>
+      <th>2019년 10월</th>
+      <th>2019년 10월.1</th>
+      <th>2019년 11월</th>
+      <th>2019년 11월.1</th>
+      <th>2019년 12월</th>
+      <th>2019년 12월.1</th>
+      <th>2020년 01월</th>
+      <th>...</th>
+      <th>2022년 02월</th>
+      <th>2022년 02월.1</th>
+      <th>2022년 03월</th>
+      <th>2022년 03월.1</th>
+      <th>2022년 04월</th>
+      <th>2022년 04월.1</th>
+      <th>2022년 05월</th>
+      <th>2022년 05월.1</th>
+      <th>2022년 06월</th>
+      <th>2022년 06월.1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>약효분류코드</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>...</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+      <td>수량</td>
+      <td>사용금액</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>111</td>
+      <td>846</td>
+      <td>3,225</td>
+      <td>892</td>
+      <td>3,298</td>
+      <td>936</td>
+      <td>3,458</td>
+      <td>971</td>
+      <td>3,512</td>
+      <td>1,016</td>
+      <td>...</td>
+      <td>919</td>
+      <td>3,426</td>
+      <td>898</td>
+      <td>3,343</td>
+      <td>778</td>
+      <td>2,601</td>
+      <td>541</td>
+      <td>1,603</td>
+      <td>29</td>
+      <td>103</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>112</td>
+      <td>20,399</td>
+      <td>2,937</td>
+      <td>21,821</td>
+      <td>3,160</td>
+      <td>21,519</td>
+      <td>3,132</td>
+      <td>22,835</td>
+      <td>3,317</td>
+      <td>23,212</td>
+      <td>...</td>
+      <td>23,425</td>
+      <td>3,192</td>
+      <td>25,313</td>
+      <td>3,415</td>
+      <td>23,050</td>
+      <td>3,084</td>
+      <td>19,844</td>
+      <td>2,588</td>
+      <td>178</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>113</td>
+      <td>65,693</td>
+      <td>17,664</td>
+      <td>69,680</td>
+      <td>18,708</td>
+      <td>70,337</td>
+      <td>18,664</td>
+      <td>72,315</td>
+      <td>19,179</td>
+      <td>73,761</td>
+      <td>...</td>
+      <td>71,940</td>
+      <td>19,485</td>
+      <td>71,831</td>
+      <td>18,904</td>
+      <td>59,455</td>
+      <td>14,584</td>
+      <td>38,779</td>
+      <td>8,306</td>
+      <td>449</td>
+      <td>112</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>114</td>
+      <td>411,282</td>
+      <td>67,625</td>
+      <td>438,919</td>
+      <td>72,180</td>
+      <td>439,850</td>
+      <td>70,728</td>
+      <td>491,542</td>
+      <td>74,902</td>
+      <td>478,204</td>
+      <td>...</td>
+      <td>400,686</td>
+      <td>67,828</td>
+      <td>659,383</td>
+      <td>88,440</td>
+      <td>468,725</td>
+      <td>74,637</td>
+      <td>304,746</td>
+      <td>51,851</td>
+      <td>4,634</td>
+      <td>935</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 69 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_df</span><span class="o">.</span><span class="n">column</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>
