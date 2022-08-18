@@ -11,7 +11,8 @@
 ### [의약품 사용 통계 분석해보기]
   * 데이터 참조 : http://opendata.hira.or.kr/op/opc/olapMsupInfo.do
   * 내용 - 약효분류별 사용빈도에 대해 분석하는 기본모델을 만들고 모델평가까지
-  * EDA [실습html] [이론txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/Project_01/study_for_EDA.txt)
+  * EDA [실습html1](https://juheefatal.github.io/MyDataAnalysis/Project_01/0818_toyProject_EDA_1.html)
+        [이론txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/Project_01/study_for_EDA.txt)
   * 기본모델 만들기 [html]
   * 모델 자체평가 해보기 [html]
     
