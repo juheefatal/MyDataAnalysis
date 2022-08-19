@@ -17,4 +17,9 @@
   * 기본모델 만들기 [html]
   * 모델 자체평가 해보기 [html]
     
-    
+### [Team Project]
+  * competition : American Express - Default Prediction [URL](https://www.kaggle.com/competitions/amex-default-prediction)
+  * 내용 - 고객이 미래에 파산할 것인지 아닌지를 예측해보기
+    * AMEX EDA [html] [txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20EDA.txt)
+    * IRIS 기본 모델 만들기 [html]
+    * IRIS 모델 평가 [html]
