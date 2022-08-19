@@ -1,4 +1,4 @@
-· How to reduce pandas memory while loading dataframe
+# How to reduce pandas memory while loading dataframe
     - don't load all the columns
 	ex) df = pd.read_csv("train.csv", usecols=["col1", "col2"])
     - Shrink numerical columns with smaller dtypes
