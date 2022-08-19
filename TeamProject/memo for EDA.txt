@@ -1,0 +1,64 @@
+· How to reduce pandas memory while loading dataframe
+    - don't load all the columns
+	ex) df = pd.read_csv("train.csv", usecols=["col1", "col2"])
+    - Shrink numerical columns with smaller dtypes
+	- If a column is integer, by default it assigns that column int64 as the dtype
+	- 분석하려는 데이터의 값들의 최대, 최솟값을 본 후 적당범위의 dtype으로 변경
+	- int8 : -128 to 127 / int16 : -32768 to 32767 / int64 : -9223372036854775808 to 9223372036854775807.
+	ex) df = pd.read_csv("train.csv", dtype={"numericalcolumn": "int8"})
+    - Shrink categorical data using Categorical dtypes
+	- By default column for qualitative value parsed as a string.(qualitative value는 기본적으로는 문자열로 해석됨)
+	- column이 제한된 범위 안에 있는 값이라면 custom dtype called 'Categorical'(사용자지정 dtype)이 좋음.
+	ex) df = pd.read_csv( "train.csv", dtype={"categoricalcolumn" : "category"})
+    - Sparse series
+	- 어떤 column이 결측치가 많다면 sparse column representation사용하면 메모리 절약가능
+	- It won’t waste memory storing all those empty values.
+	ex) df = pd.read_csv("train.csv")
+	    series = df["columnwithNA"]
+	    sparse_series = series.astype("Sparse[str]")
+    - Reading in chunks / Use streaming methods to do EDA one chank at a time
+	- use one chank at a time by using chunksize argument of pandas, without loading it all into memory at once
+	  (pandas chunksize인수 이용하면 메모리에 전부 로드하지 않고 한번에 하나의 chank사용. /chank??뭘까)
+	- It’s often a possibility to perform what is needed with much fewer data.
+	- For example, a histogram plot can be constructed with a small evenly-spaced sample from the data rather than the entire dataset.
+	  (전체 데이터 세트가 아닌 데이터의 작은 균일 간격 샘플로 구성할 수 있음)
+	- 모든 dataset을 다 본다고 해서 insight 더 많이 얻어낼 수 있는것은 아니니까 chunksize인수 이용하기
+	ex) chunksize = 10 ** 6
+	    with pd.read_csv("train.csv", chunksize=chunksize) as reader:
+   	    for chunk in reader:
+       	    process(chunk)
+	ex) def get_summary_statistics(path):
+    	    N = 0
+	    M2 = 0
+	    mean = None
+	    variance = None
+	    for chunk in pd.read_csv(path):
+	        N += len(chunk)
+	        for idx, col in enumerate(chunk.columns):
+	            data[idx] += chunk[col].values
+	            delta = data[idx] - mean
+	            mean += (delta/N)
+	            M2 += delta*(data[idx] - mean)
+	    variance = M2/(N-1)    
+	    return mean, variance
+    - Discard prior history as soon as we can and always use del to delete old objects and then collect memory with gc.collect()
+    - (for EDA) Keep data in compressed format, and decompress on the fly as needed(필요시에만 압축해제)
+	ex) import gzip
+	    f = gzip.open('file.txt.gz', 'r')
+	    file_content = f.read()
+	    f.close()
+    - (for EDA) Use numpy's builtin tricks
+	- Use features supported by numpy to work with dataset that doesn’t fit into memory
+	-  can create an array or matrix that is too big for main memory
+	   as an array that is physically stored outside the memory
+	- Being stored outside the main memory, the Numpy array object is an efficient way
+	    to limit the memory usage from being filled with the contents of the physical file in its entirety
+	ex) import numpy as np
+	    data = np.memmap('memmap', dtype='float32', mode='w+', shape=(10000, 1000000)
+    - (for EDA) Randomly sample subsets of rows and columns to save on memory footprint
+	ex) df_subset = df_subset.sample(frac=0.5, random_state=1)
+    - For Binary columns If a dataset has many binary columns, use csr_matrix for a more compact representation
+	ex) df_binary_encoded = pd.get_dummies(binary_cols)
+	    df_binary_cr_matrix = csr_matrix(df_binary_encoded.values)
+	    df_binary_cr_matrix.to_pickle('binary_encoded.pkl')
+
