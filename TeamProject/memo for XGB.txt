@@ -28,8 +28,16 @@
 	- 가지치기 기능으로 더이상 개선이 이루어지지 않는 부분을 가지치기해 분할수 줄일 수 있음
 	- 조기중단(early stopping) 기능으로 test dataset평가값이 최적화되었다 판단되면 반복을 중간에 멈출 수 있음
 	- 결손값 자체처리가능(sparse data(0이 많은 데이터) 처리 가능)
+· plot_importance([model name], ax=ax) : feature중요도를 막대그래프 형태로 반환해주는 함수. 기본 평가지표는 f1 score.
+				사이킷런은 Estimator객체의 feature_importances_속성 이용해 시각화 코드 직접작성해야 함.
+				xgboost패키지는 plot_importance()함수 사용하면 바로 feature중요도 시각화 가능
+				* 괄호 안에 학습완료된 모델객체와 matplotlib의 ax객체 입력해주면 됨.
+				* xgboost numpy기반 feature data로 학습시 feature명 알수 없으니 f0, f1 이런식으로 feature순서대로 f뒤에 순서 붙여 x축에 feature나열됨
 · param	- 참고 사이트 : https://xgboost.readthedocs.io/en/stable/parameter.html
 	- python이 아닌 R-package이용시 max_depth → max.depth 이런식으로 ( _ )를 ( . )으로 대체
+	- 파이썬 래퍼 XGBoost와 사이킷런 래퍼 XGBoost는 hyperparameter이름이 약간 차이가 있음
+		* eta → learning_rate / sub_sample → subsample / lambda → reg_lambda / alpha →reg_alpha
+	- 3가지 종류의 parameter존재
 	1. General Parameter : relate to which booster we are using to do boosting, commonly tree or linear model
 			    보통 기본값을 바꾸는 경우는 거의 없음.
 		· booster[default=gbtree] : which booster to use. (choose - gbtree / gblinear / dart)
@@ -39,23 +47,36 @@
 		· disable_default_eval_metric[default=false] : flag to disable default metric. Set to 1 or true to disable. (choose - false / true)
 		· num_feature[no need to be set by user]     : feature dimension used in boosting. Set to max dimension
  	2. Booster Parameter : depend on which booster we have chosen
-		· eta[default=0.3] : alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
-				after each boosting step, we can directly get the weights of new features
-				'eta' shrinks the feature weights to make the boosting process more conservative.
 		· eta[default=0.3]	: alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
 				 after each boosting step, we can directly get the weights of new features
 				 'eta' shrinks the feature weights to make the boosting process more conservative.
 				 과적합 방지하기 위해 업데이트 과정에서 사용되는 shrinkage의 step size. 보수적으로 부스팅과정 진행하기 위해 feature weight축소. 과적합방지위함.
+				 보통 0.01~0.2값 선호
+		· num_boost_rounds : alias 'n_estimators'. 트리 개수 지정. learning rate와 밀접한 관계 있음. 이 값이 너무 크면 모델 복잡, 과대적합 가능성 높음
+				    시간, 메모리 한도 내에서 적당한 n_estimators값 찾은 후 이 값에 맞는 적절한 learning_rate를 찾는 것이 좋음
 		· gamma[default=0] : alias 'min_split_loss'. minimum loss reduction required to make a further partition on a leaf node of the tree
 				   larger 'gamma' → more conservative algorithm
 		· max_depth[default=6] : maximum depth of a tree. larger depth → complex tree model, overfit / max_depth=0 → no limit on depth 	
-		· min_child_weight[default=1] : child node에 필요한 instance weight(hessian)의 최소합. tree split 과정시 내가 지정한 min_child_weight보다 작은 leaf node나타나면 계속 split진행
-					   larger 'min_child_weight' → more conservative algorithm
+		· min_child_weight[default=1] : child node에 필요한 instance weight(hessian)의 최소합
+					   tree split 과정시 내가 지정한 min_child_weight보다 작은 leaf node나타나면 계속 split진행
+					   larger 'min_child_weight' → more conservative algorithm. 분할 자제. 과적합 조절위함
 		· max_delta_step[default=0] : default 0 → no limit. positive value → update step more conservative. usually not needed.
 					 Logistic Regression에서 데이터셋이 심각하게 불균형한 경우 [1-10]에 해당하는 값을 설정한다면 도움될 수도 있음
-		· subsample[default=1] : range(0,1], training instances subsample비율지정. 0.5 →
+		· subsample[default=1] : range(0,1], training instances subsample비율지정. 0.5 → train dataset의 절반을 random sampling. prevent overfitting. dropout과 유사.
+					수치 작으면 과적합 방지에는 유용하지만 학습이 더뎌질 수 있음
+		· colsample_bytree[default=1] : Subsample ratio of columns when constructing each tree
+		· colsample_bylevel [default=1] : Subsample ratio of columns for each split, in each level
+		· scale_pos_weight[default=1] : positive & negative weights의 밸런스 조정. 불균형 데이터에 대해 유용함.
+		· lambda [default=1] : alias 'reg_lambda'. larger value → conservative model
 	3. Learning task Parameter : decide on the learning scenario
 		ex) regression tasks may use different parameters with ranking tasks
-	
- 
-	
+		· objective[default=reg:squarederror] : 최솟값을 가져야 할 손실 함수 정의 손실함수는 이진분류인지, 다중분류인지 등에 따라 다름
+		  → reg:squarederror, reg:squaredlogerror, reg:logistic, reg:pseudohubererror, binary:logistic, binary:logitraw, binary:hinge, count:poisson, multi:softmax, multi:softprob, …
+			· binary:logistic - 이진분류시 적용
+			· multi:softmax - 다중분류시 적용. label클래스 개수인 param 'num_class'지정 필요
+			· multi:softprob - multi:softmax와 유사하나 개별 label클래스 해당되는 예측 확률 반환
+		· base_score[default=0.5] : The initial prediction score of all instances, global bias. 바꿀 필요 없음
+ 		· eval_metric[default according to objective] : 검증에 사용되는 함수 정의. 회귀는 default=rmse, 분류 default=error
+		  → rmse, rmsle, mae, logloss, error, auc, mlogloss, …
+		· seed[default=0] : Random number seed. This parameter is ignored in R package, use set.seed() instead
+
