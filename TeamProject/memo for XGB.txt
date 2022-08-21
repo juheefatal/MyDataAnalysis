@@ -22,7 +22,7 @@
 · 트리기반 앙상블 중 가장 각광받는 알고리즘 중 하나.
 · (GBM)은 예측성능이 매우 뛰어나지만 수행 시간이 너무너무 오래 걸린다는 단점있음
 · Gradient Boosting Model(GBM)기반의 알고리즘. (ensemble⊃boosting⊃GBM⊃XGB)
-· 장점	- 병렬학습이 가능해 GBM의 단점인 오랜 수행시간을 극복
+· 장점  - 병렬학습이 가능해 GBM의 단점인 오랜 수행시간을 극복
 	- 분류와 회귀 영역에서 예측성능 우수
 	- 자체 과적합규제(Regularization)가능
 	- 가지치기 기능으로 더이상 개선이 이루어지지 않는 부분을 가지치기해 분할수 줄일 수 있음
@@ -32,14 +32,14 @@
 	- python이 아닌 R-package이용시 max_depth → max.depth 이런식으로 ( _ )를 ( . )으로 대체
 	1. General Parameter : relate to which booster we are using to do boosting, commonly tree or linear model
 			    보통 기본값을 바꾸는 경우는 거의 없음.
-		· booster[default=gbtree]	: which booster to use. (choose - gbtree / gblinear / dart)
-		· verbosity[default=1]	: verbosity of printing message. (choose - 0(silent) / 1(warning) / 2(info) / 3(debug) )
+		· booster[default=gbtree] : which booster to use. (choose - gbtree / gblinear / dart)
+		· verbosity[default=1]	  : verbosity of printing message. (choose - 0(silent) / 1(warning) / 2(info) / 3(debug) )
 					  if there's unexpected behaviour, try to increase value of verbosity
-		· nthread[default to max num. of thread]   : number of parallel threads used to ren XGBoost(Ctrl+Alt+Del → CPU → core, thread check)
+		· nthread[default to max num. of thread]     : number of parallel threads used to ren XGBoost(Ctrl+Alt+Del → CPU → core, thread check)
 		· disable_default_eval_metric[default=false] : flag to disable default metric. Set to 1 or true to disable. (choose - false / true)
-		· num_feature[no need to be set by user]  : feature dimension used in boosting. Set to max dimension
+		· num_feature[no need to be set by user]     : feature dimension used in boosting. Set to max dimension
  	2. Booster Parameter : depend on which booster we have chosen
-		· eta[default=0.3]	: alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
+		· eta[default=0.3] : alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
 				 after each boosting step, we can directly get the weights of new features, and 'eta' shrinks the feature weights to make the boosting process more conservative.
 				 과적합 방지하기 위해 업데이트 과정에서 사용되는 shrinkage의 step size. 보수적으로 부스팅과정 진행하기 위해 feature weight축소. 과적합방지위함.
 	3. Learning task Parameter : decide on the learning scenario
