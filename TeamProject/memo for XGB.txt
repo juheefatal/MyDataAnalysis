@@ -40,8 +40,20 @@
 		· num_feature[no need to be set by user]     : feature dimension used in boosting. Set to max dimension
  	2. Booster Parameter : depend on which booster we have chosen
 		· eta[default=0.3] : alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
-				 after each boosting step, we can directly get the weights of new features, and 'eta' shrinks the feature weights to make the boosting process more conservative.
+				after each boosting step, we can directly get the weights of new features
+				'eta' shrinks the feature weights to make the boosting process more conservative.
+		· eta[default=0.3]	: alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
+				 after each boosting step, we can directly get the weights of new features
+				 'eta' shrinks the feature weights to make the boosting process more conservative.
 				 과적합 방지하기 위해 업데이트 과정에서 사용되는 shrinkage의 step size. 보수적으로 부스팅과정 진행하기 위해 feature weight축소. 과적합방지위함.
+		· gamma[default=0] : alias 'min_split_loss'. minimum loss reduction required to make a further partition on a leaf node of the tree
+				   larger 'gamma' → more conservative algorithm
+		· max_depth[default=6] : maximum depth of a tree. larger depth → complex tree model, overfit / max_depth=0 → no limit on depth 	
+		· min_child_weight[default=1] : child node에 필요한 instance weight(hessian)의 최소합. tree split 과정시 내가 지정한 min_child_weight보다 작은 leaf node나타나면 계속 split진행
+					   larger 'min_child_weight' → more conservative algorithm
+		· max_delta_step[default=0] : default 0 → no limit. positive value → update step more conservative. usually not needed.
+					 Logistic Regression에서 데이터셋이 심각하게 불균형한 경우 [1-10]에 해당하는 값을 설정한다면 도움될 수도 있음
+		· subsample[default=1] : range(0,1], training instances subsample비율지정. 0.5 →
 	3. Learning task Parameter : decide on the learning scenario
 		ex) regression tasks may use different parameters with ranking tasks
 	
