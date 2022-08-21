@@ -1,0 +1,49 @@
+# ensemble(앙상블)
+· 여러개의 classifier생성 후 그 예측들을 결합해 더 정확한 최종예측을 도출하기 위한 기법
+· ensemble 기법
+    1. voting(보팅) : 서로 다른 알고리즘의 분류기들을 결합
+    2. bagging(배깅, Bootstrap aggregating) : 모두 같은 알고리즘의 분류기들을 결합, 샘플링하는 데이터에 차이를 둠.
+	ex) randomforest
+	* bootstrapping : 원본 학습데이터에서 여러개의 sampling dataset을 추출(=random sampling)
+			데이터 셋(training set) 내의 데이터 분포가 고르지 않은 경우 자주 사용
+			train에 사용할 dataset이 충분하지 않아도 높은 학습효과 제공가능
+    3. boosting(부스팅) : 앞서 학습한 분류기의 오차 보정위해 다음 분류기 학습데이터들 샘플가중치를 보정
+			이전 모델을 개선해서 다음 모델을 만든다는 것
+			outlier에 취약하니 주의해야함
+	ex) gradient boosting(xgboost, lightgbm, …) : gradient descent(경사하강법)통해 가중치 업데이트 수행
+	* gradient descent : 오류를 최소화 할 수 있도록 반복수행하며 가중치를 업데이트하는 기법
+	* outlier(이상치) : 문제(이상)가 있는 data. 일반 데이터 패턴과는 다른 매우 이상한 패턴을 가진 데이터
+			머신러닝, 딥러닝 모델은 outlier에 의해 성능이 크게 좌우됨
+			outlier detection이 매우 중요
+			    - data z-score이용하거나 boxplot을 통해 outlier확인
+			    - IQL, winsorization(윈저화)등의 기법을 통해 oulier처리
+
+# XGBoost(eXtra Gradient Boost)
+· 트리기반 앙상블 중 가장 각광받는 알고리즘 중 하나.
+· (GBM)은 예측성능이 매우 뛰어나지만 수행 시간이 너무너무 오래 걸린다는 단점있음
+· Gradient Boosting Model(GBM)기반의 알고리즘. (ensemble⊃boosting⊃GBM⊃XGB)
+· 장점	- 병렬학습이 가능해 GBM의 단점인 오랜 수행시간을 극복
+	- 분류와 회귀 영역에서 예측성능 우수
+	- 자체 과적합규제(Regularization)가능
+	- 가지치기 기능으로 더이상 개선이 이루어지지 않는 부분을 가지치기해 분할수 줄일 수 있음
+	- 조기중단(early stopping) 기능으로 test dataset평가값이 최적화되었다 판단되면 반복을 중간에 멈출 수 있음
+	- 결손값 자체처리가능(sparse data(0이 많은 데이터) 처리 가능)
+· param	- 참고 사이트 : https://xgboost.readthedocs.io/en/stable/parameter.html
+	- python이 아닌 R-package이용시 max_depth → max.depth 이런식으로 ( _ )를 ( . )으로 대체
+	1. General Parameter : relate to which booster we are using to do boosting, commonly tree or linear model
+			    보통 기본값을 바꾸는 경우는 거의 없음.
+		· booster[default=gbtree]	: which booster to use. (choose - gbtree / gblinear / dart)
+		· verbosity[default=1]	: verbosity of printing message. (choose - 0(silent) / 1(warning) / 2(info) / 3(debug) )
+					  if there's unexpected behaviour, try to increase value of verbosity
+		· nthread[default to max num. of thread]   : number of parallel threads used to ren XGBoost(Ctrl+Alt+Del → CPU → core, thread check)
+		· disable_default_eval_metric[default=false] : flag to disable default metric. Set to 1 or true to disable. (choose - false / true)
+		· num_feature[no need to be set by user]  : feature dimension used in boosting. Set to max dimension
+ 	2. Booster Parameter : depend on which booster we have chosen
+		· eta[default=0.3]	: alias(별칭) 'learning_rate'. step size shrinkage used in update to prevents overfitting.
+				 after each boosting step, we can directly get the weights of new features, and 'eta' shrinks the feature weights to make the boosting process more conservative.
+				 과적합 방지하기 위해 업데이트 과정에서 사용되는 shrinkage의 step size. 보수적으로 부스팅과정 진행하기 위해 feature weight축소. 과적합방지위함.
+	3. Learning task Parameter : decide on the learning scenario
+		ex) regression tasks may use different parameters with ranking tasks
+	
+ 
+	
