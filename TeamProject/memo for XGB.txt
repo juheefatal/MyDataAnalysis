@@ -53,6 +53,7 @@
 				 과적합 방지하기 위해 업데이트 과정에서 사용되는 shrinkage의 step size. 보수적으로 부스팅과정 진행하기 위해 feature weight축소. 과적합방지위함.
 				 보통 0.01~0.2값 선호
 		· num_boost_rounds : alias 'n_estimators'. 트리 개수 지정. learning rate와 밀접한 관계 있음. 이 값이 너무 크면 모델 복잡, 과대적합 가능성 높음
+				    default=100
 				    시간, 메모리 한도 내에서 적당한 n_estimators값 찾은 후 이 값에 맞는 적절한 learning_rate를 찾는 것이 좋음
 		· gamma[default=0] : alias 'min_split_loss'. minimum loss reduction required to make a further partition on a leaf node of the tree
 				   larger 'gamma' → more conservative algorithm
