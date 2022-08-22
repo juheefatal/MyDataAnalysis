@@ -21,5 +21,6 @@
   * competition : American Express - Default Prediction [URL](https://www.kaggle.com/competitions/amex-default-prediction)
   * 내용 - 고객이 미래에 파산할 것인지 아닌지를 예측해보기
     * AMEX EDA [실습html](https://juheefatal.github.io/MyDataAnalysis/TeamProject/%EC%9C%A0%EB%A6%BC_20220819_amex_eda.html) [이론txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20EDA.txt)
-    * AMEX 기본 모델 만들기 [xgb] [lgbm]
+    * AMEX 기본 모델 만들기1_XGBoost  [실습 html] [이론 txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20XGB.txt)
+    * AMEX 기본 모델 만들기2_LightGBM [실습 html] [이론 txt]
     * AMEX 모델 평가 [html]
