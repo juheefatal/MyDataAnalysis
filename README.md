@@ -24,3 +24,4 @@
     * AMEX 기본 모델 만들기1_XGBoost  [실습 html] [이론 txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20XGB.txt)
     * AMEX 기본 모델 만들기2_LightGBM [실습 html] [이론 txt]
     * AMEX 모델 평가 [html]
+    * 중간발표(220823) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/TeamAmazon_amex_mid_simple.pptx)
