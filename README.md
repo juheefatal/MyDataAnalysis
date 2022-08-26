@@ -24,7 +24,8 @@
                [이론txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20EDA.txt)
     * AMEX 기본 모델 만들기1_XGBoost  [실습 html] [이론 txt](https://github.com/juheefatal/MyDataAnalysis/blob/main/TeamProject/memo%20for%20XGB.txt)
     * AMEX 기본 모델 만들기2_LightGBM [실습 html] [이론 txt]
-    * AMEX 모델 평가 [html]
+    * AMEX 기본 모델 만들기3_RandomForest [실습 html] [이론 txt]
+    * AMEX 기본 모델 만들기4_CatBoost [실습html] [이론txt]
     * 중간발표(220823) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/TeamAmazon_amex_mid_simple.pptx)
     * 최종발표(220826) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/_teamAmazon_amex_animation_ver._finalPT.pptx) 
                        [ppt](https://juheefatal.github.io/MyDataAnalysis/TeamProject/teamAmazon_amex_finalPT.pdf)
