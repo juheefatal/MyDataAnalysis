@@ -27,5 +27,5 @@
     * AMEX 기본 모델 만들기3_RandomForest [실습 html] [이론 txt]
     * AMEX 기본 모델 만들기4_CatBoost [실습html] [이론txt]
     * 중간발표(220823) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/TeamAmazon_amex_mid_simple.pptx)
-    * 최종발표(220826) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/_teamAmazon_amex_animation_ver._finalPT.pptx) 
+    * 최종발표(220826) [pptx](https://juheefatal.github.io/MyDataAnalysis/TeamProject/teamAmazon_amex_includeAnimation_finalPT.pptx) 
                        [ppt](https://juheefatal.github.io/MyDataAnalysis/TeamProject/teamAmazon_amex_finalPT.pdf)
